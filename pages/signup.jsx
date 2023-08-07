@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Link from 'next/link'
+import Link from "next/link"
 
 import ImageWithSpace from "../src/components/layout/ImageWithSpace"
 import H1 from "../src/components/typography/H1"
