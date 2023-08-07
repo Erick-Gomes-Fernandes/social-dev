@@ -5,6 +5,10 @@ const StyledContainer = styled.div
   display: flex;
   justify-content: center;
 
+  @media (max-width: 700px) {
+    padding: 10px;
+  }
+
 `
 
 const StyledChildren = styled.div
