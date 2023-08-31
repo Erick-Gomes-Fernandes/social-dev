@@ -50,7 +50,7 @@ function Post ({ text, user, date, isOwner, id }) {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
+      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/post?id=${id}`)
       if(response.status === 200)
       mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
     } catch (err) {

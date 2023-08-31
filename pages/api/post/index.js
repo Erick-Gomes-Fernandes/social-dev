@@ -33,7 +33,8 @@ handler
   .delete(validate(deletePostSchema, async (req, res) => {
     try {
       if(!req.session.user) return res.status(401).send()
-      const deletedPost = await deletePost(req.body.id, req.session.user)
+      const { id } = req.query
+      const deletedPost = await deletePost(id)
       if (deletedPost)
       return res.status(200).send({ ok: true })
 
