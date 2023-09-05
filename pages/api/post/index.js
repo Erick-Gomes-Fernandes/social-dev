@@ -30,7 +30,7 @@ handler
       return res.status(500).send(err.message)
     }
   })
-  .delete(validate(deletePostSchema, async (req, res) => {
+  .delete(validate(deletePostSchema), async (req, res) => {
     try {
       if(!req.session.user) return res.status(401).send()
       const { id } = req.query
@@ -43,7 +43,7 @@ handler
     } catch (err) {
       return res.status(500).send(err.message)
     }
-  }))
+  })
   .patch(validate(editPostSchema), async (req, res) => {
     try {
       if(!req.session.user) return res.status(401).send()
