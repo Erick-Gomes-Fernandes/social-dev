@@ -56,11 +56,16 @@ function CreatePost ({ username }) {
   })
 
   const onSubmit = async (data) => {
-    setButtonMode(true)
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/post`, data)
-    if (response.status === 201) {
-      reset()
-      mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
+    try {
+      setButtonMode(true)
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/post`, data)
+      if (response.status === 201) {
+        reset()
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
       setButtonMode(false)
     }
   }

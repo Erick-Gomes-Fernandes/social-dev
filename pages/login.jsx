@@ -52,14 +52,14 @@ function LoginPage () {
         setError('password', {
           message: 'A senha está incorreta.'
         })
-        setButtonMode(false)
       }
       else if (response.data === 'not found') {
         setError('userOrEmail', {
           message: 'Usuário ou e-mail não encontrado.'
         })
-        setButtonMode(false)
       }
+    } finally {
+      setButtonMode(false)
     }
   }
 

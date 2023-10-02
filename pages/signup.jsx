@@ -50,8 +50,9 @@ function SignupPage () {
         setError(err.response.data.duplicatedKey, {
           type: 'duplicated'
         })
-        setButtonMode(false)
       }
+    } finally {
+      setButtonMode(false)
     }
   }
 
