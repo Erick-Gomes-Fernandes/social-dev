@@ -13,6 +13,7 @@ import H2 from "../src/components/typography/H2"
 import H4 from "../src/components/typography/H4"
 import Button from "../src/components/inputs/Button"
 import Input from "../src/components/inputs/Input"
+import { useState } from "react"
 
 const FormContainer = styled.div
 `
@@ -37,8 +38,11 @@ function LoginPage () {
     resolver: joiResolver(loginSchema)
   })
 
+  const [buttonMode, setButtonMode] = useState(false);
+
   const onSubmit = async (data) => {
     try {
+      setButtonMode(true)
       const { status } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/login`, data)
       if (status === 200) {
         router.push('/')
@@ -48,11 +52,14 @@ function LoginPage () {
         setError('password', {
           message: 'A senha está incorreta.'
         })
+        setButtonMode(false)
       }
-      else if (response.data === 'not found')
-      setError('userOrEmail', {
-        message: 'Usuário ou e-mail não encontrado.'
-      })
+      else if (response.data === 'not found') {
+        setError('userOrEmail', {
+          message: 'Usuário ou e-mail não encontrado.'
+        })
+        setButtonMode(false)
+      }
     }
   }
 
@@ -65,7 +72,7 @@ function LoginPage () {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input label="Email ou usuário" name="userOrEmail" control={control} />
           <Input label="Senha" type="password" name="password" control={control} />
-          <Button type="submit" disabled={Object.keys(errors).length > 0}>Entrar</Button>
+          <Button loading={buttonMode} type="submit" disabled={Object.keys(errors).length > 0}>Entrar</Button>
         </Form>
         <Text>Não possui uma conta? <Link href="/signup">Faça seu cadastro</Link></Text>
       </FormContainer>
